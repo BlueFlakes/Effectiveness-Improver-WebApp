@@ -1,4 +1,4 @@
-package com.webapp.effectiveness.functionalities.periodpulser;
+package com.webapp.effectiveness.functionalities.timebeater;
 
 import java.util.concurrent.atomic.AtomicLong;
 
