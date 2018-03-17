@@ -2,7 +2,7 @@ package com.webapp.effectiveness.functionalities.periodpulser;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-public class SafeIncrementationService {
+public class AtomicLongWrapper {
     private AtomicLong lifeTime = new AtomicLong();
 
     public Long getLifeTime( ) {
