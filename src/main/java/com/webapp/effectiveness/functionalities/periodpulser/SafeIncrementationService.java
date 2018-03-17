@@ -9,7 +9,7 @@ public class SafeIncrementationService {
         return this.lifeTime.get();
     }
 
-    private void incrementSecondsAlive() {
+    public void increment() {
         while (true) {
             long currentLifeLength = getLifeTime();
             long next = currentLifeLength + 1;
