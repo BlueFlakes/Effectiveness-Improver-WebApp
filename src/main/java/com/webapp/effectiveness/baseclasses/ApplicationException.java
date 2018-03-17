@@ -1,4 +1,4 @@
-package com.webapp.effectiveness.exceptions;
+package com.webapp.effectiveness.baseclasses;
 
 public abstract class ApplicationException extends Exception {
 
