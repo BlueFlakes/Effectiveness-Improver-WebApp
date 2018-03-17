@@ -3,11 +3,11 @@ package com.webapp.effectiveness.functionalities.periodpulser;
 import com.webapp.effectiveness.common.observator.SubscribersEden;
 
 
-public class ElapsedPeriodPulser implements Runnable {
+public class ElapsedTimeBeater implements Runnable {
     public final SubscribersEden subscribersEden = new SubscribersEden();
     private final long sleepingPeriodInMillis;
 
-    public ElapsedPeriodPulser(long sleepingPeriodInMillis) {
+    public ElapsedTimeBeater(long sleepingPeriodInMillis) {
         if (sleepingPeriodInMillis < 1)
             throw new IllegalArgumentException("Invalid period. Expect greater than 0");
 
