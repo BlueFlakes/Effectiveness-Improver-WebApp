@@ -1,15 +1,15 @@
-package com.webapp.effectiveness.functionalities.periodpulser;
+package com.webapp.effectiveness.functionalities.timebeater;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-public class SafeIncrementationService {
+public class AtomicLongWrapper {
     private AtomicLong lifeTime = new AtomicLong();
 
     public Long getLifeTime( ) {
         return this.lifeTime.get();
     }
 
-    private void incrementSecondsAlive() {
+    public void increment() {
         while (true) {
             long currentLifeLength = getLifeTime();
             long next = currentLifeLength + 1;
