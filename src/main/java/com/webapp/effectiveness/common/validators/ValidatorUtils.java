@@ -12,8 +12,8 @@ public enum  ValidatorUtils {
         }
     }
 
-    public static void requireNonNull(Object... collection) {
-        for (Object value : collection) {
+    public static void requireNonNull(Object... args) {
+        for (Object value : args) {
             Objects.requireNonNull(value);
         }
     }
