@@ -1,4 +1,4 @@
-package com.webapp.effectiveness.functionalities.timebeater;
+package com.webapp.effectiveness.common.datastructures.atomics;
 
 import java.util.concurrent.atomic.AtomicLong;
 
