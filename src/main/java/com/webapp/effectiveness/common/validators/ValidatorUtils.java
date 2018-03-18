@@ -3,20 +3,22 @@ package com.webapp.effectiveness.common.validators;
 import java.util.Collection;
 import java.util.Objects;
 
-public class ValidatorUtils {
-    public static <T> void nonNull(Collection<T> collection) {
-        for (T value : collection) {
+public enum  ValidatorUtils {
+    ; // sign end of fields
+
+    public static void requireNonNull(Collection<Object> collection) {
+        for (Object value : collection) {
             Objects.requireNonNull(value);
         }
     }
 
-    public static <T> void nonNull(T... collection) {
-        for (T value : collection) {
+    public static void requireNonNull(Object... collection) {
+        for (Object value : collection) {
             Objects.requireNonNull(value);
         }
     }
 
-    public static <T> void nonNull(T element) {
+    public static void requireNonNull(Object element) {
         Objects.requireNonNull(element);
     }
 }
