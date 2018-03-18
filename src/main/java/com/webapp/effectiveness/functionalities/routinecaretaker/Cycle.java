@@ -8,11 +8,6 @@ public class Cycle {
     private final CycleType cycleType;
     private final transient long cachePeriodLengthInMillis;
 
-    enum CycleType {
-        WORK_TIME,
-        FREE_TIME;
-    }
-
     public Cycle(Integer periodLengthInMinutes, CycleType cycleType) {
         ValidatorUtils.requireNonNull(periodLengthInMinutes, cycleType);
 
@@ -30,6 +25,10 @@ public class Cycle {
             throw new InvalidSequenceOfInvocationsException();
 
         return alreadySpentMillis - this.cachePeriodLengthInMillis;
+    }
+
+    public CycleType getCycleType( ) {
+        return cycleType;
     }
 
     public Integer getPeriodLengthInMinutes( ) {
