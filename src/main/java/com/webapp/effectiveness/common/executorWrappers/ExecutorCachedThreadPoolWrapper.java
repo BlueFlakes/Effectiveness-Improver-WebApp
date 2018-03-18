@@ -16,8 +16,6 @@ public class ExecutorCachedThreadPoolWrapper implements ApplicationCloseable {
 
     private static ExecutorCachedThreadPoolWrapper executorWrapper;
 
-    private Set<Runnable> alreadyRunningRunnables = new HashSet<>();
-
     private ExecutorCachedThreadPoolWrapper() {}
 
     public static ExecutorCachedThreadPoolWrapper getInstance() {
