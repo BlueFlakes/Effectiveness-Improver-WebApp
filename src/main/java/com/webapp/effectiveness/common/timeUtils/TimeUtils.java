@@ -1,6 +1,7 @@
 package com.webapp.effectiveness.common.timeUtils;
 
-public class TimeUtils {
+public enum  TimeUtils {
+    ; // sign end of fields
 
     public interface CalculatePattern {
         long apply(long quantity);
