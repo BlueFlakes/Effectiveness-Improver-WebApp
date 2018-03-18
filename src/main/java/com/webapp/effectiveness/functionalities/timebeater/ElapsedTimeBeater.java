@@ -1,18 +1,29 @@
 package com.webapp.effectiveness.functionalities.timebeater;
 
+import com.webapp.effectiveness.common.cacheutils.Cache;
 import com.webapp.effectiveness.common.observator.Subscriber;
 import com.webapp.effectiveness.common.observator.SubscribersEden;
 
-
 public class ElapsedTimeBeater implements Runnable {
+    private static final Cache<Long, ElapsedTimeBeater> elapsedTimeBeaterCache = new Cache<>(100);
+
     private final SubscribersEden subscribersEden = new SubscribersEden();
     private final long sleepingPeriodInMillis;
 
-    public ElapsedTimeBeater(long sleepingPeriodInMillis) {
+    private ElapsedTimeBeater(long sleepingPeriodInMillis) {
         if (sleepingPeriodInMillis < 1)
             throw new IllegalArgumentException("Invalid period. Expect greater than 0");
 
         this.sleepingPeriodInMillis = sleepingPeriodInMillis;
+    }
+
+    public static ElapsedTimeBeater createCached(long sleepingPeriodInMillis) {
+        return elapsedTimeBeaterCache.create(sleepingPeriodInMillis,
+                                        () -> new ElapsedTimeBeater(sleepingPeriodInMillis));
+    }
+
+    public static ElapsedTimeBeater create(long sleepingPeriodInMillis) {
+        return new ElapsedTimeBeater(sleepingPeriodInMillis);
     }
 
     public void addSubscriber(Subscriber subscriber) {
