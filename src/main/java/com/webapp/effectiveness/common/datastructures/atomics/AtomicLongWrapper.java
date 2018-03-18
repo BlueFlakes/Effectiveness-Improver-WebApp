@@ -3,18 +3,18 @@ package com.webapp.effectiveness.common.datastructures.atomics;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class AtomicLongWrapper {
-    private AtomicLong lifeTime = new AtomicLong();
+    private AtomicLong atomicLong = new AtomicLong();
 
-    public Long getLifeTime( ) {
-        return this.lifeTime.get();
+    public long getCurrentValue( ) {
+        return this.atomicLong.get();
     }
 
     public void increment() {
         while (true) {
-            long currentLifeLength = getLifeTime();
+            long currentLifeLength = getCurrentValue();
             long next = currentLifeLength + 1;
 
-            if (this.lifeTime.compareAndSet(currentLifeLength, next)) {
+            if (this.atomicLong.compareAndSet(currentLifeLength, next)) {
                 return;
             }
         }
