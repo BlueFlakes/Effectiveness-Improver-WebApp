@@ -1,4 +1,4 @@
-package com.webapp.effectiveness.common.datastructures.circularlinkekdlist;
+package com.webapp.effectiveness.common.datastructures.lists;
 
 import com.webapp.effectiveness.baseclasses.ApplicationRuntimeException;
 

@@ -1,8 +1,8 @@
 package com.webapp.effectiveness.functionalities.routinecaretaker;
 
-import com.webapp.effectiveness.common.datastructures.circularlinkekdlist.CircularList;
-
+import com.webapp.effectiveness.common.datastructures.lists.CircularList;
 import java.util.Objects;
+
 
 public class Routine {
     private final CircularList<Cycle> cycles;
@@ -24,8 +24,5 @@ public class Routine {
 
     public static void main(String[] args) {
         Routine routine = new Routine();
-
-
-
     }
 }

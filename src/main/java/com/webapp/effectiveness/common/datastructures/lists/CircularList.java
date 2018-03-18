@@ -1,4 +1,4 @@
-package com.webapp.effectiveness.common.datastructures.circularlinkekdlist;
+package com.webapp.effectiveness.common.datastructures.lists;
 
 import java.util.*;
 import java.util.function.Supplier;
