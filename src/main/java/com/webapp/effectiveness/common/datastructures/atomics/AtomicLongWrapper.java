@@ -19,4 +19,16 @@ public class AtomicLongWrapper {
             }
         }
     }
+
+    public void restart() {
+        final long startValue = 0;
+
+        while (true) {
+            long currentLifeLength = getCurrentValue();
+
+            if (this.atomicLong.compareAndSet(currentLifeLength, startValue)) {
+                return;
+            }
+        }
+    }
 }
