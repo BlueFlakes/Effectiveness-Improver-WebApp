@@ -2,10 +2,11 @@ package com.webapp.effectiveness.common.cacheutils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class Cache<K, V> {
-    private final Map<K, V> cache = new HashMap<>();
+    private final Map<K, V> cache = new ConcurrentHashMap<>();
     private final int maxCacheSize;
 
     public Cache(int maxCacheSize) {
