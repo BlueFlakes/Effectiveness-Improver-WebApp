@@ -34,6 +34,11 @@ public class ElapsedTimeBeater implements Runnable {
         this.subscribersEden.removeSubscriber(subscriber);
     }
 
+    public long getSleepingPeriodInMillis( ) {
+        return sleepingPeriodInMillis;
+    }
+
+
     public void run( ) {
         while (true) {
             try {
