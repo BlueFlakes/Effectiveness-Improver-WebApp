@@ -1,10 +1,11 @@
 package com.webapp.effectiveness.functionalities.timebeater;
 
+import com.webapp.effectiveness.common.observator.Subscriber;
 import com.webapp.effectiveness.common.observator.SubscribersEden;
 
 
 public class ElapsedTimeBeater implements Runnable {
-    public final SubscribersEden subscribersEden = new SubscribersEden();
+    private final SubscribersEden subscribersEden = new SubscribersEden();
     private final long sleepingPeriodInMillis;
 
     public ElapsedTimeBeater(long sleepingPeriodInMillis) {
@@ -12,6 +13,14 @@ public class ElapsedTimeBeater implements Runnable {
             throw new IllegalArgumentException("Invalid period. Expect greater than 0");
 
         this.sleepingPeriodInMillis = sleepingPeriodInMillis;
+    }
+
+    public void addSubscriber(Subscriber subscriber) {
+        this.subscribersEden.addSubscriber(subscriber);
+    }
+
+    public void removeSubscriber(Subscriber subscriber) {
+        this.subscribersEden.removeSubscriber(subscriber);
     }
 
     public void run( ) {
