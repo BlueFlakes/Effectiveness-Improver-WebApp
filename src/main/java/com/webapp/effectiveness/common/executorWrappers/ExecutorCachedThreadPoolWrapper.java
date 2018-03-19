@@ -1,10 +1,8 @@
 package com.webapp.effectiveness.common.executorWrappers;
 
 import com.webapp.effectiveness.common.ApplicationCloseable;
-import com.webapp.effectiveness.common.datastructures.atomics.AtomicLongWrapper;
+import com.webapp.effectiveness.common.datastructures.atomics.ConcurrentLong;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -12,7 +10,7 @@ import java.util.concurrent.Executors;
 
 public class ExecutorCachedThreadPoolWrapper implements ApplicationCloseable {
     private ExecutorService executorService = Executors.newFixedThreadPool(5);
-    private AtomicLongWrapper runningThreads = new AtomicLongWrapper();
+    private ConcurrentLong runningThreads = new ConcurrentLong();
 
     private static ExecutorCachedThreadPoolWrapper executorWrapper;
 

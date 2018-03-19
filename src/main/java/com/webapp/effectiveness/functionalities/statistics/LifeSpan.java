@@ -1,13 +1,13 @@
 package com.webapp.effectiveness.functionalities.statistics;
 
-import com.webapp.effectiveness.common.datastructures.atomics.AtomicLongWrapper;
+import com.webapp.effectiveness.common.datastructures.atomics.ConcurrentLong;
 import com.webapp.effectiveness.common.observator.Subscriber;
 
 public class LifeSpan implements Subscriber {
-    private AtomicLongWrapper lifeSpan;
+    private ConcurrentLong lifeSpan;
 
     {
-        this.lifeSpan = new AtomicLongWrapper();
+        this.lifeSpan = new ConcurrentLong();
     }
 
     public long getLength() {
