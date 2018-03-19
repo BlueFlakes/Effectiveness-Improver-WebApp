@@ -9,10 +9,10 @@ public class FixedSubscribersEden extends SubscribersEden {
 
     @Override
     public boolean addSubscriber(Subscriber subscriber) {
-        return !isCapacityExceeded() && super.addSubscriber(subscriber);
+        return isCapacityExceeded() && super.addSubscriber(subscriber);
     }
 
     private boolean isCapacityExceeded() {
-        return this.size() > this.maxSize;
+        return this.size() < this.maxSize;
     }
 }
