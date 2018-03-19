@@ -34,8 +34,13 @@ public class SubscribersEden implements ApplicationCloseable {
         );
     }
 
+    int size() {
+        return this.subscribers.size();
+    }
+
     @Override
     public void onClose() {
-        this.executorService.shutdown();
+        this.executorService.shutdownNow();
+        this.subscribers.clear();
     }
 }
