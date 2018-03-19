@@ -13,8 +13,8 @@ import java.util.function.Supplier;
 
 // Recommended is to test performance relation between amount of subscribers and sleeping period
 // If TimeBeater get too much subscribers with very low sleeping period
-// then he can fail to update every value
-public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
+// then he can fail to update every value and lose precision
+public class ElapsedTimeBeater implements ApplicationCloseable {
     private static final Cache<Long, ElapsedTimeBeater> elapsedTimeBeaterCache = new Cache<>(100);
     private final ScheduledExecutorService timeBeat = Executors.newSingleThreadScheduledExecutor();
 
@@ -29,11 +29,12 @@ public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
 
         this.sleepingPeriodInMillis = sleepingPeriodInMillis;
         this.subscribersEden = edenSupplier.get();
-        startTimeBeat();
+        startTimeBeater();
     }
 
-    private void startTimeBeat() {
-        timeBeat.scheduleAtFixedRate(this, 0, sleepingPeriodInMillis, TimeUnit.MILLISECONDS);
+    private void startTimeBeater() {
+        ElapsedTimeBeaterExecutor elapsedTimeBeaterExecutor = new ElapsedTimeBeaterExecutor();
+        timeBeat.scheduleAtFixedRate(elapsedTimeBeaterExecutor, 0, sleepingPeriodInMillis, TimeUnit.MILLISECONDS);
     }
 
     public static ElapsedTimeBeater createCached(long sleepingPeriodInMillis,
@@ -63,9 +64,11 @@ public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
         return sleepingPeriodInMillis;
     }
 
-    @Override
-    public void run( ) {
-        this.subscribersEden.notifySubscribers();
+    private class ElapsedTimeBeaterExecutor implements Runnable {
+        @Override
+        public void run( ) {
+            subscribersEden.notifySubscribers();
+        }
     }
 
     @Override

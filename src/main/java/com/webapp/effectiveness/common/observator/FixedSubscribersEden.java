@@ -4,6 +4,9 @@ public class FixedSubscribersEden extends SubscribersEden {
     private int maxSize;
 
     public FixedSubscribersEden(int maxSize) {
+        if (maxSize < 1)
+            throw new IllegalArgumentException("Expect higher than 0 value.");
+
         this.maxSize = maxSize;
     }
 

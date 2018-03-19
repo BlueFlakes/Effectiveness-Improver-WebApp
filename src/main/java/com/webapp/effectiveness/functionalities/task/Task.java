@@ -21,8 +21,7 @@ public class Task {
     @CreationTimestamp
     private LocalDateTime creationDate;
 
-    public Task(String taskName, LocalDateTime creationDate) {
+    public Task(String taskName) {
         this.taskName = taskName;
-        this.creationDate = creationDate;
     }
 }

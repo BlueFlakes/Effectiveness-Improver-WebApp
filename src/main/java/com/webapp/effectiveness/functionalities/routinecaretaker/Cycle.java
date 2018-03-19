@@ -21,10 +21,7 @@ public class Cycle {
     }
 
     public long calculatePeriodDiff(long alreadySpentMillis) {
-        if (alreadySpentMillis < cachePeriodLengthInMillis)
-            throw new InvalidSequenceOfInvocationsException();
-
-        return alreadySpentMillis - this.cachePeriodLengthInMillis;
+        return this.cachePeriodLengthInMillis - alreadySpentMillis;
     }
 
     public CycleType getCycleType( ) {
