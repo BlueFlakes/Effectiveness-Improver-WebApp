@@ -21,7 +21,7 @@ public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
 
     private final SubscribersEden subscribersEden;
     private final long sleepingPeriodInMillis;
-    private boolean isNew = true;
+    private boolean isFirstTime = true;
 
     private ElapsedTimeBeater(long sleepingPeriodInMillis,
                               Supplier<SubscribersEden> edenSupplier) {
@@ -34,10 +34,10 @@ public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
     }
 
     public void startTimeBeater() {
-        if (!this.isNew)
+        if (!this.isFirstTime)
             throw new InvalidSequenceOfInvocationsException();
 
-        this.isNew = false;
+        this.isFirstTime = false;
         timeBeat.scheduleAtFixedRate(this, 0, sleepingPeriodInMillis, TimeUnit.MILLISECONDS);
     }
 
