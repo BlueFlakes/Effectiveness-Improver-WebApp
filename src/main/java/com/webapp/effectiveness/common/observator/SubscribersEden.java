@@ -1,6 +1,7 @@
 package com.webapp.effectiveness.common.observator;
 
 import com.webapp.effectiveness.common.ApplicationCloseable;
+import com.webapp.effectiveness.common.validators.ValidatorUtils;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -17,13 +18,15 @@ public class SubscribersEden implements ApplicationCloseable {
         this.subscribers = Collections.newSetFromMap(new ConcurrentHashMap<>());
     }
 
-    public void addSubscriber(Subscriber subscriber) {
-        Objects.requireNonNull(subscriber);
+    public boolean addSubscriber(Subscriber subscriber) {
+        ValidatorUtils.requireNonNull(subscriber);
         this.subscribers.add(subscriber);
+
+        return true;
     }
 
     public void removeSubscriber(Subscriber subscriber) {
-        Objects.requireNonNull(subscriber);
+        ValidatorUtils.requireNonNull(subscriber);
         this.subscribers.remove(subscriber);
     }
 
@@ -33,8 +36,13 @@ public class SubscribersEden implements ApplicationCloseable {
         );
     }
 
+    int size() {
+        return this.subscribers.size();
+    }
+
     @Override
     public void onClose() {
-        this.executorService.shutdown();
+        this.executorService.shutdownNow();
+        this.subscribers.clear();
     }
 }

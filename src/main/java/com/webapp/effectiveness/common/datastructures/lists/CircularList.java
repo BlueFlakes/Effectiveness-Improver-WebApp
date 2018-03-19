@@ -1,5 +1,7 @@
 package com.webapp.effectiveness.common.datastructures.lists;
 
+import com.webapp.effectiveness.common.validators.ValidatorUtils;
+
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -31,12 +33,12 @@ public class CircularList<T> {
     }
 
     public void add(T o) {
-        Objects.requireNonNull(o);
+        ValidatorUtils.requireNonNull(o);
         this.container.add(o);
     }
 
     public void remove(T o) {
-        Objects.requireNonNull(o);
+        ValidatorUtils.requireNonNull(o);
         this.container.remove(o);
     }
 
