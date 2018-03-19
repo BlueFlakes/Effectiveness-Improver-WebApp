@@ -5,7 +5,6 @@ import com.webapp.effectiveness.common.cacheutils.Cache;
 import com.webapp.effectiveness.common.observator.Subscriber;
 import com.webapp.effectiveness.common.observator.SubscribersEden;
 import com.webapp.effectiveness.common.validators.ValidatorUtils;
-import com.webapp.effectiveness.functionalities.routinecaretaker.InvalidSequenceOfInvocationsException;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,7 +20,6 @@ public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
 
     private final SubscribersEden subscribersEden;
     private final long sleepingPeriodInMillis;
-    private boolean isFirstTime = true;
 
     private ElapsedTimeBeater(long sleepingPeriodInMillis,
                               Supplier<SubscribersEden> edenSupplier) {
@@ -31,13 +29,10 @@ public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
 
         this.sleepingPeriodInMillis = sleepingPeriodInMillis;
         this.subscribersEden = edenSupplier.get();
+        startTimeBeater();
     }
 
-    public void startTimeBeater() {
-        if (!this.isFirstTime)
-            throw new InvalidSequenceOfInvocationsException();
-
-        this.isFirstTime = false;
+    private void startTimeBeater() {
         timeBeat.scheduleAtFixedRate(this, 0, sleepingPeriodInMillis, TimeUnit.MILLISECONDS);
     }
 
