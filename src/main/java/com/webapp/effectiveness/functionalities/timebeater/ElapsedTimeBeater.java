@@ -5,6 +5,7 @@ import com.webapp.effectiveness.common.cacheutils.Cache;
 import com.webapp.effectiveness.common.observator.Subscriber;
 import com.webapp.effectiveness.common.observator.SubscribersEden;
 import com.webapp.effectiveness.common.validators.ValidatorUtils;
+import com.webapp.effectiveness.functionalities.routinecaretaker.InvalidSequenceOfInvocationsException;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -13,13 +14,14 @@ import java.util.function.Supplier;
 
 // Recommended is to test performance relation between amount of subscribers and sleeping period
 // If TimeBeater get too much subscribers with very low sleeping period
-// then he can fail to update every value
+// then he can fail to update every value and lose precision
 public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
     private static final Cache<Long, ElapsedTimeBeater> elapsedTimeBeaterCache = new Cache<>(100);
     private final ScheduledExecutorService timeBeat = Executors.newSingleThreadScheduledExecutor();
 
     private final SubscribersEden subscribersEden;
     private final long sleepingPeriodInMillis;
+    private boolean isNew = true;
 
     private ElapsedTimeBeater(long sleepingPeriodInMillis,
                               Supplier<SubscribersEden> edenSupplier) {
@@ -29,10 +31,13 @@ public class ElapsedTimeBeater implements Runnable, ApplicationCloseable {
 
         this.sleepingPeriodInMillis = sleepingPeriodInMillis;
         this.subscribersEden = edenSupplier.get();
-        startTimeBeat();
     }
 
-    private void startTimeBeat() {
+    public void startTimeBeater() {
+        if (!this.isNew)
+            throw new InvalidSequenceOfInvocationsException();
+
+        this.isNew = false;
         timeBeat.scheduleAtFixedRate(this, 0, sleepingPeriodInMillis, TimeUnit.MILLISECONDS);
     }
 
