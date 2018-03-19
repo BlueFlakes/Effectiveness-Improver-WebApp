@@ -18,9 +18,11 @@ public class SubscribersEden implements ApplicationCloseable {
         this.subscribers = Collections.newSetFromMap(new ConcurrentHashMap<>());
     }
 
-    public void addSubscriber(Subscriber subscriber) {
+    public boolean addSubscriber(Subscriber subscriber) {
         ValidatorUtils.requireNonNull(subscriber);
         this.subscribers.add(subscriber);
+
+        return true;
     }
 
     public void removeSubscriber(Subscriber subscriber) {
