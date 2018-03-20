@@ -17,7 +17,7 @@ public class Cycle {
     }
 
     public boolean isTimeExceeded(long alreadySpentMillis) {
-        return alreadySpentMillis > this.cachePeriodLengthInMillis;
+        return alreadySpentMillis >= this.cachePeriodLengthInMillis;
     }
 
     public long calculatePeriodDiff(long alreadySpentMillis) {
