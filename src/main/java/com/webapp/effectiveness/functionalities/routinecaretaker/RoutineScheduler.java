@@ -1,6 +1,7 @@
 package com.webapp.effectiveness.functionalities.routinecaretaker;
 
 import com.webapp.effectiveness.common.ApplicationCloseable;
+import com.webapp.effectiveness.common.datastructures.atomics.ConcurrentBoolean;
 import com.webapp.effectiveness.common.validators.ValidatorUtils;
 import com.webapp.effectiveness.functionalities.statistics.LifeSpan;
 import com.webapp.effectiveness.functionalities.task.Task;
@@ -39,6 +40,7 @@ public class RoutineScheduler implements ApplicationCloseable {
     }
 
     public class CycleRunner implements Runnable {
+        private ConcurrentBoolean shouldRun = new ConcurrentBoolean(false);
         private LifeSpan lifeSpan = new LifeSpan();
         private Cycle cycle;
 
@@ -60,9 +62,19 @@ public class RoutineScheduler implements ApplicationCloseable {
             return this.cycle.isTimeExceeded(currentLifeSpanMillis);
         }
 
+        public CycleType getCycleType() {
+            return this.cycle.getCycleType();
+        }
+
+        public void kill() {
+            elapsedTimeBeater.removeSubscriber(this.lifeSpan);
+            this.shouldRun.setFalse();
+        }
+
         @Override
         public void run( ) {
             try {
+                this.shouldRun.setTrue();
                 elapsedTimeBeater.addSubscriber(this.lifeSpan);
                 handleCycleExecution();
 
@@ -78,6 +90,10 @@ public class RoutineScheduler implements ApplicationCloseable {
             while (!isTimeExceeded) {
                 Thread.sleep(100);
                 isTimeExceeded = isCycleFinished();
+
+                if (!this.shouldRun.lookUpCurrentState()) {
+                    throw new InterruptedException();
+                }
             }
         }
     }
